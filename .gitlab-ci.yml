@@ -10,7 +10,8 @@ workflow:
 build:
   stage: build
   tags:
-    - saas-linux-small-amd64
+    - bas2301
+    - linux
   script:
     - chmod +x mvnw
     - ./mvnw clean compile test package
