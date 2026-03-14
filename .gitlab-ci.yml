@@ -1,0 +1,19 @@
+image: eclipse-temurin:21-jdk
+
+stages:
+  - build
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == 'main'
+
+build:
+  stage: build
+  tags:
+    - saas-linux-small-amd64
+  script:
+    - chmod +x mvnw
+    - ./mvnw clean compile test package
+  artifacts:
+    paths:
+      - target/*.jar
