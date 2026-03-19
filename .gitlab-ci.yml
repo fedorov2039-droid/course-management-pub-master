@@ -28,3 +28,11 @@ sast:
   artifacts:
     reports:
       sast: semgrep.sarif
+
+dependency_check:
+  stage: test
+  script:
+    - ./mvnw org.owasp:dependency-check-maven:check -Dformat=HTML
+  artifacts:
+    paths:
+      - target/dependency-check-report.html
