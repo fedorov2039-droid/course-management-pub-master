@@ -2,6 +2,7 @@ image: eclipse-temurin:21-jdk
 
 stages:
   - build
+  - test
 
 workflow:
   rules:
@@ -10,10 +11,20 @@ workflow:
 build:
   stage: build
   tags:
-    - saas-linux-small-amd64
+    - bas2301
+    - linux
   script:
     - chmod +x mvnw
     - ./mvnw clean compile test package
   artifacts:
     paths:
       - target/*.jar
+
+sast:
+  stage: test
+  image: returntocorp/semgrep
+  script:
+    - semgrep ci --config auto --sarif --output semgrep.sarif
+  artifacts:
+    reports:
+      sast: semgrep.sarif    #
