@@ -32,6 +32,7 @@ sast:
 dependency_check:
   stage: test
   script:
+    - chmod +x mvnw
     - ./mvnw org.owasp:dependency-check-maven:check -Dformat=HTML
   artifacts:
     paths:
